@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XRP Reward Hub - Live Transactions & Rewards</title>
+    <title>XRP Reward Hub - Live Transactions</title>
     <style>
         /* Stunning CSS: Gradient background, animations, modern fonts */
         body {
@@ -101,23 +101,6 @@
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        .reward-section {
-            text-align: center;
-            margin: 40px 0;
-        }
-        .reward-section button {
-            background: #ffcc00;
-            border: none;
-            color: #000;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .reward-section button:hover {
-            transform: scale(1.1);
-        }
         section {
             width: 100%;
             max-width: 800px;
@@ -126,7 +109,7 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
         }
-        /* Particle background for stunning effect (simple CSS version) */
+        /* Particle background for stunning effect */
         .particles {
             position: fixed;
             top: 0;
@@ -155,29 +138,22 @@
 
     <header>
         <h1>XRP Reward Hub</h1>
-        <p>Your gateway to live XRP action and rewards!</p>
+        <p>Your gateway to live XRP action!</p>
     </header>
 
     <div class="container">
         <!-- Copyable XRP Address in the middle -->
         <div class="xrp-address">
-            <h2>Our XRP Reward Address</h2>
+            <h2>Our XRP Address</h2>
             <input type="text" id="xrpAddress" value="rYourXRPAddressHere" readonly>
             <button onclick="copyAddress()">Copy to Clipboard</button>
-            <p>Send XRP here to support the hub and unlock potential rewards!</p>
+            <p>Send XRP here to support the hub!</p>
         </div>
 
         <!-- Live Transactions Display -->
         <div class="live-transactions">
             <h2>Live XRP Transactions</h2>
             <div id="transactionsList"></div>
-        </div>
-
-        <!-- Reward Section -->
-        <div class="reward-section">
-            <h2>Claim Your XRP Reward</h2>
-            <p>Click below to simulate claiming a daily XRP drop (placeholder – integrate backend for real rewards).</p>
-            <button onclick="claimReward()">Claim Reward</button>
         </div>
 
         <!-- Write-ups / Info Sections -->
@@ -188,12 +164,12 @@
 
         <section>
             <h2>About This Site</h2>
-            <p>XRP Reward Hub is a community-driven platform where enthusiasts can monitor live transactions on the XRP Ledger, copy our reward address for contributions, and claim simulated rewards. It's built to showcase the speed and transparency of XRP while providing educational resources. Future updates may include real reward faucets, NFT integrations, and more!</p>
+            <p>XRP Reward Hub is a community-driven platform where enthusiasts can monitor live transactions on the XRP Ledger and copy our address for contributions. It's built to showcase the speed and transparency of XRP while providing educational resources. Future updates may include NFT integrations and more!</p>
         </section>
 
         <section>
             <h2>How It Works</h2>
-            <p>The live feed connects directly to the XRP Ledger's public network for real-time updates. Rewards are currently simulated – in a full version, users could earn XRP for tasks like sharing posts or completing quizzes. Always use official wallets and verify addresses to stay safe.</p>
+            <p>The live feed connects directly to the XRP Ledger's public network for real-time updates. Always use official wallets and verify addresses to stay safe.</p>
         </section>
     </div>
 
@@ -206,11 +182,6 @@
             address.select();
             document.execCommand('copy');
             alert('XRP Address copied to clipboard!');
-        }
-
-        // Simulate Claim Reward (placeholder)
-        function claimReward() {
-            alert('Reward claimed! You got 0.1 XRP (simulated). Check back tomorrow!');
         }
 
         // Live Transactions via XRPL WebSocket
