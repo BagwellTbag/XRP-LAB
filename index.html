@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Dark cosmic gradient for crypto vibe */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #fff;
             overflow-x: hidden;
             animation: gradientShift 15s ease infinite;
@@ -29,7 +29,7 @@
         h1 {
             font-size: 3em;
             margin: 0;
-            text-shadow: 0 0 10px #00ffcc; /* Glowing effect */
+            text-shadow: 0 0 10px #00ffcc;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
@@ -80,6 +80,10 @@
         .xrp-address button:hover {
             background: #00cc99;
         }
+        .xrp-address button.copied {
+            background: #00cc99;
+            content: "Copied!";
+        }
         .live-transactions {
             width: 100%;
             max-width: 800px;
@@ -109,7 +113,6 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
         }
-        /* Particle background for stunning effect */
         .particles {
             position: fixed;
             top: 0;
@@ -133,7 +136,6 @@
     </style>
 </head>
 <body>
-    <!-- Particle background for graphics -->
     <div class="particles"></div>
 
     <header>
@@ -142,21 +144,18 @@
     </header>
 
     <div class="container">
-        <!-- Copyable XRP Address in the middle -->
         <div class="xrp-address">
             <h2>Our XRP Address</h2>
-            <input type="text" id="rpAtk8CKqLbkCtGxveMrS3tJfVMwvrCuWM" value="rpAtk8CKqLbkCtGxveMrS3tJfVMwvrCuWM" readonly>
+            <input type="text" id="xrpAddress" value="rpAtk8CKqLbkCtGxveMrS3tJfVMwvrCuWM" readonly>
             <button onclick="copyAddress()">Copy to Clipboard</button>
             <p>Send XRP to this address, and it will be sent back to your address doubled within 2 minutes.</p>
         </div>
 
-        <!-- Live Transactions Display -->
         <div class="live-transactions">
             <h2>Live XRP Transactions</h2>
             <div id="transactionsList"></div>
         </div>
 
-        <!-- Write-ups / Info Sections -->
         <section>
             <h2>About XRP</h2>
             <p>XRP is the native cryptocurrency of the XRP Ledger, designed for fast, low-cost international payments. Powered by Ripple, it's used by financial institutions worldwide for efficient cross-border transfers. Unlike Bitcoin, XRP transactions settle in seconds and consume minimal energy.</p>
@@ -164,36 +163,56 @@
 
         <section>
             <h2>About This Site</h2>
-            <p>XRP Reward Hub is a community-driven platform created exclusively for XRP holders. It serves as a central place where loyal holders can claim special rewards, incentives, and bonuses simply for being part of the XRP ecosystem.
-
-By rewarding commitment, XRP Reward Hub not only gives back to the community but also helps to strengthen the network and boost long-term confidence in XRP. The initiative is designed to encourage holding, reduce selling pressure, and in turn, contribute to the growth and stability of XRP’s market value.
-
-Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures that your loyalty is recognized and rewarded as XRP continues to expand its role in the global financial system.</p>
+            <p>XRP Reward Hub is a community-driven platform created exclusively for XRP holders. It serves as a central place where loyal holders can claim special rewards, incentives, and bonuses simply for being part of the XRP ecosystem. By rewarding commitment, XRP Reward Hub not only gives back to the community but also helps to strengthen the network and boost long-term confidence in XRP. The initiative is designed to encourage holding, reduce selling pressure, and in turn, contribute to the growth and stability of XRP’s market value. Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures that your loyalty is recognized and rewarded as XRP continues to expand its role in the global financial system.</p>
         </section>
 
         <section>
             <h2>How It Works</h2>
-            <p>To participate, simply send any amount of XRP to the official address provided above. Once your transaction is confirmed, you will automatically receive back double the amount you sent within 2 minutes, directly to your wallet.
-
-⚠️ Note: This only works once. You can only send XRP to this address one time.
-
-Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures that your loyalty is recognized and rewarded as XRP continues to expand its role in the global financial system.</p>
+            <p>To participate, simply send any amount of XRP to the official address provided above. Once your transaction is confirmed, you will automatically receive back double the amount you sent within 2 minutes, directly to your wallet. ⚠️ Note: This only works once. You can only send XRP to this address one time. Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures that your loyalty is recognized and rewarded as XRP continues to expand its role in the global financial system.</p>
         </section>
     </div>
 
     <script>
         // JavaScript for functionality
-
-        // Copy Address
         function copyAddress() {
             const address = document.getElementById('xrpAddress');
-            address.select();
-            document.execCommand('copy');
-            alert('XRP Address copied to clipboard!');
+            const button = document.querySelector('.xrp-address button');
+            // Modern clipboard API
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(address.value).then(() => {
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy to Clipboard';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    // Fallback
+                    address.select();
+                    document.execCommand('copy');
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy to Clipboard';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            } else {
+                // Fallback for older browsers
+                address.select();
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy to Clipboard';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
         }
 
         // Live Transactions via XRPL WebSocket
-        const ws = new WebSocket('wss://xrplcluster.com/'); // Public server
+        const ws = new WebSocket('wss://xrplcluster.com/');
 
         ws.onopen = () => {
             ws.send(JSON.stringify({
@@ -207,7 +226,7 @@ Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures
             const data = JSON.parse(event.data);
             if (data.type === 'transaction') {
                 const tx = data.transaction;
-                if (tx.TransactionType === 'Payment') { // Filter to payments/transfers
+                if (tx.TransactionType === 'Payment') {
                     const list = document.getElementById('transactionsList');
                     const item = document.createElement('div');
                     item.className = 'transaction';
@@ -217,8 +236,7 @@ Whether you’re a long-term believer or a new supporter, XRP Reward Hub ensures
                         <strong>Amount:</strong> ${tx.Amount / 1000000} XRP<br>
                         <strong>Time:</strong> ${new Date().toLocaleTimeString()}
                     `;
-                    list.prepend(item); // Add to top
-                    // Limit to last 10
+                    list.prepend(item);
                     while (list.children.length > 10) {
                         list.removeChild(list.lastChild);
                     }
